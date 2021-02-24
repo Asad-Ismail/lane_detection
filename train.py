@@ -10,13 +10,14 @@ from Models import unetModel
 import os
 import datetime
 import numpy as np
+from losses import custom_sparse_weighted_crossentropy
 
 parser=argparse.ArgumentParser(description="Input Args")
-parser.add_argument("--train_images",type=str,default="/media/asad/8800F79D00F79104/lanes_data/images/")
-parser.add_argument("--train_labels",type=str,default="/media/asad/8800F79D00F79104/lanes_data/labels/")
+#parser.add_argument("--train_images",type=str,default="/media/asad/8800F79D00F79104/lanes_data/images/")
+#parser.add_argument("--train_labels",type=str,default="/media/asad/8800F79D00F79104/lanes_data/labels/")
 
-#parser.add_argument("--train_images",type=str,default="/home/asad/ld/images/")
-#parser.add_argument("--train_labels",type=str,default="/home/asad/ld/labels/")
+parser.add_argument("--train_images",type=str,default="/media/asad/8800F79D00F79104/lanes_data/20k_images/")
+parser.add_argument("--train_labels",type=str,default="/media/asad/8800F79D00F79104/lanes_data/20k_labels/")
 
 args=parser.parse_args()
 
@@ -48,8 +49,11 @@ def main():
     unet.load_weights("best_unet_lane.h5")
     unet.trainable=True
     #tf.keras.utils.plot_model(unet, show_shapes=True)
-    mIOU = tf.keras.metrics.MeanIoU(num_classes=ClASSES)   
-    unet.compile(optimizer=Adam(learning_rate=lr), loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),metrics=['accuracy'])    
+    mIOU = tf.keras.metrics.MeanIoU(num_classes=ClASSES)
+    class_weights=[1.0,1,1,1,1] 
+    loss=custom_sparse_weighted_crossentropy(class_weights)  
+    #loss=tf.keras.losses.sparse_categorical_crossentropy(from_logits=True)
+    unet.compile(optimizer=Adam(learning_rate=lr), loss =loss,metrics=['accuracy'])    
     #sample show predictions
     #intial_pred=create_mask(unet.predict(sample_image))
     #show_predictions(sample_image=sample_image,sample_label=sample_label,sample_pred=intial_pred)

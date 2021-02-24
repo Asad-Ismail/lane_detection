@@ -13,6 +13,7 @@ import mpldatacursor
 import cv2
 import shutil
 from sklearn.utils import class_weight
+from random import sample 
 
 # Defining some hyper parameters
 IMG_SIZE=(384,640)
@@ -97,6 +98,17 @@ def check_and_move(input_imgaes,input_labels,dst_images,dst_labels):
              shutil.copy(os.path.join(input_labels,image), os.path.join(dst_labels,image))
              print(f"Copied {total_files}") 
 
+def pick_save_n_dataset(images_path,labels_path,dst_images,dst_label,n=20000,target_size=(640,384)):
+    images=os.listdir(images_path)
+    images=sample(images,n)  
+    for i,image in enumerate(images):
+        print(f"Procsses {i} data")
+        c_i=os.path.join(images_path,image)
+        c_l=os.path.join(labels_path,image)
+        img=cv2.resize(cv2.imread(c_i),target_size,interpolation=cv2.INTER_CUBIC)
+        label=cv2.resize(cv2.imread(c_l),target_size,interpolation=cv2.INTER_NEAREST)
+        cv2.imwrite(os.path.join(dst_images,image),img)
+        cv2.imwrite(os.path.join(dst_label,image),label)
 
 def get_class_weights(images_list):
     av_weights=[]
