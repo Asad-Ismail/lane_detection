@@ -2,7 +2,6 @@ import tensorflow as tf
 from tensorflow.keras.layers import *
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint,TensorBoard
 from tensorflow.keras.optimizers import Adam
-from utils import dataset
 import  argparse
 from utils import dataset
 from utils import display_sample,show_predictions,create_mask
@@ -22,21 +21,14 @@ parser.add_argument("--train_labels",type=str,default="/media/asad/8800F79D00F79
 args=parser.parse_args()
 
 
-class DisplayCallback(tf.keras.callbacks.Callback):
-  def on_epoch_end(self, epoch, logs=None):
-    clear_output(wait=True)
-    show_predictions()
-    print ('\nSample Prediction after epoch {}\n'.format(epoch+1))
-
-
 BATCH_SIZE=3
 EPOCHS = 100
 ClASSES=5 # BAckgroud plus four lanes
 lr=0.0001
 
 def main():
-    mydata=dataset(args.train_images,args.train_labels)
-    datasets=mydata.load_dataset()
+    lane_data=dataset(args.train_images,args.train_labels)
+    datasets=lane_data.load_dataset()
     # Test and plot data
     #data=list(datasets["train"].take(1).as_numpy_iterator())
     #sample_image,sample_label=data[0][0],data[0][1]

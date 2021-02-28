@@ -125,7 +125,6 @@ def get_class_weights(images_list):
     print(av_weights)
     return av_weights
 
-
 def show_predictions(dataset=None,sample_image=None,sample_label=None,sample_pred=None,num=1):
     if dataset:
         for image, mask in dataset.take(num):
@@ -189,6 +188,50 @@ class dataset():
         return {"train":train_dataset,"val":val_dataset}
 
 
+class DisplayCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs=None):
+    clear_output(wait=True)
+    show_predictions()
+    print ('\nSample Prediction after epoch {}\n'.format(epoch+1))
+
+
+
+def evaluate_lite_model(interpreter_path,test_data):
+  interpreter = tf.lite.Interpreter(model_path=str(interpreter_path))
+  input_index = interpreter.get_input_details()[0]["index"]
+  output_index = interpreter.get_output_details()[0]["index"]
+  output_shape = interpreter.get_output_details()[0]["shape"]
+  # Resize input tensor to take 150 images batch size
+  #input_shape=[150,100,100,3]
+  #interpreter.resize_tensor_input(input_index,input_shape)
+  #interpreter.resize_tensor_input(output_index,[150, 1, output_shape[1]])  
+  interpreter.allocate_tensors()
+  # Run predictions on every image in the "test" dataset.
+  results= []
+  #print(f"Total test images batches {len(test_data)}")
+  for i,(test_image,labels) in enumerate(test_data):
+    # Pre-processing: add batch dimension and convert to float32 to match with
+    # the model's input data format.
+    #if i==len(test_data)-1:
+    #    break
+    #test_image = test_image.astype(np.float32)
+    interpreter.set_tensor(input_index, test_image)
+
+    # Run inference.
+    interpreter.invoke()
+
+    # Post-processing: remove batch dimension and find the digit with highest
+    # probability.
+    output = interpreter.tensor(output_index)
+    digit = np.argmax(output(),axis=-1)
+    labels= np.squeeze(labels,axis=-1)
+    #print(labels.size)
+    res=np.sum((digit==labels).astype(np.uint8))/labels.size
+    results.append(res)
+  
+  average_acc=np.mean(results)
+  
+  return average_acc
 
 
 if  __name__== "__main__":
@@ -206,3 +249,10 @@ if  __name__== "__main__":
     
     #sample_image, sample_mask = image, mask
     display_sample([sample_image,sample_label])
+    #check_and_move("/media/asad/adas_cv_2/train/images","/media/asad/adas_cv_2/train/lane_labels","/media/asad/8800F79D00F79104/lanes_data/images","/media/asad/8800F79D00F79104/lanes_data/labels")
+    #label_list=os.listdir("/media/asad/adas_cv_2/train/lane_labels")
+    #label_list=[os.path.join("/media/asad/adas_cv_2/train/lane_labels",path) for path in label_list]
+    #sample_list=sample(label_list,200)
+    #get_class_weights(sample_list)
+    #pick_save_n_dataset("/media/asad/8800F79D00F79104/lanes_data/images","/media/asad/8800F79D00F79104/lanes_data/labels","/media/asad/8800F79D00F79104/lanes_data/20k_images",
+    #"/media/asad/8800F79D00F79104/lanes_data/20k_labels")
