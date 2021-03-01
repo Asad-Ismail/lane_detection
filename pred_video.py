@@ -51,7 +51,8 @@ class pred_lite():
 
 def main():
     tf_model=pred_tf()
-    lite_model=pred_lite("/home/asad/projs/lane_detection/tf-lite-models/model_quant.tflite")
+    #lite_model=pred_lite("/home/asad/projs/lane_detection/tf-lite-models/model_quant.tflite")
+    lite_model=pred_lite("/home/asad/projs/lane_detection/cluster.tflite")
     if (cap.isOpened()== False): 
         print("Error opening video stream or file")
     while(cap.isOpened()):
@@ -84,8 +85,8 @@ def main():
             blend_tf = cv2.addWeighted(frame, alpha, rgb_tf.astype(np.uint8), beta, 0.0)
             stacked_image=np.hstack([blend_tf,blend_lite])
             cv2.imshow('Frame',stacked_image)
-            #out_video.write(blend)
-            if cv2.waitKey(25) & 0xFF == ord('q'):
+            out_video.write(stacked_image)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         else: 
             break

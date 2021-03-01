@@ -59,8 +59,9 @@ def display_sample(display_list):
     the ground truth and the prediction.
     """
     #plt.figure(figsize=(18, 18))
+    print(len(display_list))
     title = ['Input Image', 'True Mask', 'Predicted Mask']
-    _, ax = plt.subplots(display_list[0].shape[0], 3, sharex=True)
+    _, ax = plt.subplots(display_list[0].shape[0], len(display_list), sharex=True)
     fax = ax.ravel()
     for k in range(0,display_list[0].shape[0]):
         for i in range(len(display_list)):
@@ -170,6 +171,8 @@ class dataset():
         dataset = tf.data.Dataset.list_files(self.images_path + "*.png", seed=self.SEED)
         self.val_size=int(self.total_images*split)
         self.train_size=self.total_images-self.val_size
+        print(f"Training size {self.train_size}")
+        print(f"Validation size {self.val_size}")
         #Load datasets
         dataset = dataset.map(self.load)
         #Dataset splitting
@@ -182,9 +185,11 @@ class dataset():
         for t in transforms:
             train_dataset=train_dataset.map(lambda x,y:t(x,y),num_parallel_calls=AUTOTUNE)
         train_dataset = train_dataset.prefetch(buffer_size=AUTOTUNE)
+        train_dataset=train_dataset.repeat()
         # No augmentation for the validation dataset
         val_dataset = val_dataset.batch(b_sz)
         val_dataset = val_dataset.prefetch(buffer_size=AUTOTUNE)
+        val_dataset=val_dataset.repeat()
         return {"train":train_dataset,"val":val_dataset}
 
 

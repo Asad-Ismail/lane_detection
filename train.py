@@ -28,18 +28,18 @@ lr=0.0001
 
 def main():
     lane_data=dataset(args.train_images,args.train_labels)
-    datasets=lane_data.load_dataset()
+    datasets=lane_data.load_dataset(b_sz=BATCH_SIZE)
     # Test and plot data
     #data=list(datasets["train"].take(1).as_numpy_iterator())
     #sample_image,sample_label=data[0][0],data[0][1]
     #display_sample([sample_image,sample_label])
     # Model declration 
-    model=unetModel(fine_tune=True)
+    model=unetModel()
     unet=model.get_unet()
     #print(unet.summary())
     #print(f"Loading pretrained model")
     unet.load_weights("best_unet_lane.h5")
-    unet.trainable=True
+    unet.trainable=False
     #tf.keras.utils.plot_model(unet, show_shapes=True)
     mIOU = tf.keras.metrics.MeanIoU(num_classes=ClASSES)
     class_weights=[1.0,1,1,1,1] 
@@ -51,8 +51,8 @@ def main():
     #show_predictions(sample_image=sample_image,sample_label=sample_label,sample_pred=intial_pred)
     EPOCHS = 100
     BATCH_SIZE=3
-    STEPS_PER_EPOCH = mydata.train_size // BATCH_SIZE
-    VALIDATION_STEPS = mydata.val_size // BATCH_SIZE
+    STEPS_PER_EPOCH = lane_data.train_size // BATCH_SIZE
+    VALIDATION_STEPS = lane_data.val_size // BATCH_SIZE
     logdir = os.path.join("logs", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
     tensorboard_callback = tf.keras.callbacks.TensorBoard(logdir, histogram_freq=1)
     callbacks = [
