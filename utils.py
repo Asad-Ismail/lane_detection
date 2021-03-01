@@ -18,7 +18,7 @@ from random import sample
 # Defining some hyper parameters
 IMG_SIZE=(384,640)
 
-
+@tf.function
 def flip(x: tf.Tensor,y: tf.Tensor) -> tf.Tensor:
     if (tf.random.uniform(()) > 0.5):
         x = tf.image.flip_left_right(x)
@@ -31,7 +31,7 @@ def flip(x: tf.Tensor,y: tf.Tensor) -> tf.Tensor:
         y=tf.where(y==24,np.dtype('uint8').type(4),y)
         y=tf.where(y==32,np.dtype('uint8').type(3),y)
     return x,y
-
+@tf.function
 def color(x: tf.Tensor,y:tf.Tensor) -> tf.Tensor:
     x = tf.image.random_hue(x, 0.08)
     x = tf.image.random_saturation(x, 0.6, 1.6)
@@ -39,7 +39,7 @@ def color(x: tf.Tensor,y:tf.Tensor) -> tf.Tensor:
     x = tf.image.random_contrast(x, 0.7, 1.3)
     return x,y
 
-
+@tf.function
 def rotate(x: tf.Tensor,y:tf.Tensor) -> tuple:
     angle=tf.random.uniform((), minval=-5, maxval=5)
     x=tfa.image.rotate(x,angle*3.14/180)
@@ -150,12 +150,8 @@ class dataset():
         """Load image"""
         filename=(tf.strings.split(img_path,"/")[-1])
         mask_path=tf.strings.join([self.labels_path,filename])
-        #filename=img_path.split("/")[-1]
-        #image=load_img(img_path,color_mode="RGB",target_size=IMG_SIZE,interpolation="bicubic")
-        #label=load_img(img_path,color_mode="gray",target_size=IMG_SIZE,interpolation="nearest")
         image = tf.io.read_file(img_path)
         image = tf.image.decode_png(image, channels=3)
-        #image = tf.image.convert_image_dtype(image, tf.uint8)
         image = tf.image.resize(image, IMG_SIZE, method='bilinear',antialias=True)
         # Normalize input image
         image/=255.0
@@ -174,10 +170,11 @@ class dataset():
         print(f"Training size {self.train_size}")
         print(f"Validation size {self.val_size}")
         #Load datasets
-        #dataset = dataset.interleave(dataset.map(self.load, num_parallel_calls=AUTOTUNE))
-        dataset = dataset.map(self.load,num_parallel_calls=AUTOTUNE)
+        dataset = dataset.interleave(lambda x:tf.data.Dataset.from_tensors(x).map(self.load, num_parallel_calls=AUTOTUNE), num_parallel_calls=AUTOTUNE,
+    deterministic=False)
+        #dataset = dataset.map(self.load,num_parallel_calls=AUTOTUNE)
         #Dataset splitting
-        dataset.shuffle(buffer_size=1000,seed=self.SEED)
+        dataset.shuffle(buffer_size=self.total_images,seed=self.SEED)
         val_dataset = dataset.take(self.val_size)
         train_dataset = dataset.skip(self.val_size)
         #Train dataset augmentation
