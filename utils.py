@@ -174,7 +174,8 @@ class dataset():
         print(f"Training size {self.train_size}")
         print(f"Validation size {self.val_size}")
         #Load datasets
-        dataset = dataset.map(self.load)
+        #dataset = dataset.interleave(dataset.map(self.load, num_parallel_calls=AUTOTUNE))
+        dataset = dataset.map(self.load,num_parallel_calls=AUTOTUNE)
         #Dataset splitting
         dataset.shuffle(buffer_size=1000,seed=self.SEED)
         val_dataset = dataset.take(self.val_size)
