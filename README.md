@@ -20,3 +20,8 @@
 ### Model:
 * MobileNetV2 is used as the backbone network and then transposed convolutions are applied for upsampling with UNET like feature concatenation
 * ResNets or EfficentNet can also be used as backbone for better performance
+## Training and Prediction
+1) Install requiremnets using "pip install -r requirements.txt"
+2) run training using "python train.py --train_images [path to train images] --train_labels [path to train labels]"
+3) Pred on image or video using pred.py or pred_video.py(also writes the blended video)
+4) Prune cluster and quantize model weights and activations
