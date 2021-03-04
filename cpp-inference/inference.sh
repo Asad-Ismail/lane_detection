@@ -1,4 +1,3 @@
-build/classification /home/asad/projs/fruits_classification/fruits-class/tf-lite/inception_model_quant.tflite \
-/home/asad/projs/fruits_classification/fruits-class/labels.txt \
-/home/asad/projs/fruits_classification/cpp-inference/test.jpg
-
+build/segmentation /home/asad/projs/lane_detection/cluster_quantized_weights.tflite \
+/home/asad/projs/lane_detection/cpp-inference/labels.txt \
+/home/asad/mai_99.png

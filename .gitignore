@@ -9,3 +9,4 @@
 *.ipynb_checkpoints
 tensorflow_src/
 build/
+*.swp

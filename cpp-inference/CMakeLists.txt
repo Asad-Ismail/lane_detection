@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(classification C CXX)
+project(segmentation C CXX)
 set(CMAKE_CXX_STANDARD 11)
 find_package( OpenCV REQUIRED )
 
@@ -35,10 +35,10 @@ include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 
 
-add_executable(classification
-  classification.cc
+add_executable(segmentation
+  segmentation.cc
 )
-target_link_libraries(classification
+target_link_libraries(segmentation
   tensorflow-lite
   ${CMAKE_DL_LIBS}
   ${OpenCV_LIBS}
