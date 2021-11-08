@@ -1,6 +1,4 @@
 # Ego and Side Lane Detection for ADAS applications (Tensorflow 2.x)
-### Purpose of the repo is to provide complete pipeline for lane detection to be used for ADAS functionality like lane keeping and lane change
-### Features:
 
 1) Segement and classify left ego and left and right lane lines
   <p align="center">
