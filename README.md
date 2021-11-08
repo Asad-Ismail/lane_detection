@@ -30,7 +30,7 @@
   </p>
     <p align="center">
   
-5) ~11x reduction of model size by applying above method from 24MB to 2.2MB
+5) ~11x reduction of model size by applying above pipeline from 24MB to 2.2MB
 <p align="center">
     <img src="https://user-images.githubusercontent.com/22799415/109627067-85a1db80-7b41-11eb-96f7-107d4ae99224.gif"  alt="animated" />
   </p>
