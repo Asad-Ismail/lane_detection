@@ -1,4 +1,5 @@
 # Ego and Side Lane Detection for ADAS applications (Tensorflow 2.x)
+## [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Asad-Ismail/SMN/issues) [![HitCount](http://hits.dwyl.com/Asad-Ismail/SMN.svg?style=flat-square)](http://hits.dwyl.com/Asad-Ismail/SMN)
 
 ### Features
 1) Segement and classify left ego and left and right lane lines
