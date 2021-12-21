@@ -1,5 +1,5 @@
 # Ego and Side Lane Detection for ADAS applications (Tensorflow 2.x)
-## [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Asad-Ismail/lane_detection/issues) [![HitCount](http://hits.dwyl.com/Asad-Ismail/lane_detection.svg?style=flat-square)](http://hits.dwyl.com/Asad-Ismail/lane_detection)
+## [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Asad-Ismail/lane_detection/issues) [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAsad-Ismail%2Flane_detection&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ### Features
 1) Segement and classify left ego and left and right lane lines
