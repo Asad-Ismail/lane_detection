@@ -24,7 +24,7 @@
 1) Install requiremnets using "pip install -r requirements.txt"
 2) run training using "python train.py --train_images [path to train images] --train_labels [path to train labels]"
 3) Pred on image or video using pred.py or pred_video.py(also writes the blended video)
-4) Prune cluster and quantize model weights and activations
+5) Prune cluster and quantize model weights and activations
   <p align="center">
     <img src="https://user-images.githubusercontent.com/22799415/109626664-19bf7300-7b41-11eb-8367-de783d1af713.png" alt="pruning",img width="550" />
   </p>
@@ -35,3 +35,4 @@
     <img src="https://user-images.githubusercontent.com/22799415/109627067-85a1db80-7b41-11eb-96f7-107d4ae99224.gif"  alt="animated" />
   </p>
 
+Pretrained weights avaiable at https://drive.google.com/drive/folders/1EhQ-8UoFv4rvMqe2mrJ4HFzZATd_Ee8c?usp=sharing
