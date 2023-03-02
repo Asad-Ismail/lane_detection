@@ -14,30 +14,30 @@
 
 ## 📚 Training Dataset:
 
-The training data is TU Simple Lane Detection dataset.You can access it through this link: https://github.com/TuSimple/tusimple-benchmark
+* The training data is TU Simple Lane Detection dataset.You can access it through this link: https://github.com/TuSimple/tusimple-benchmark
 
-Dataset is preprocessed to annotate the lanes in 4 categories left ego (label=2), right ego (label=1), right lane (label=3), and left lane line (label=4)
+* Dataset is preprocessed to annotate the lanes in 4 categories left ego (label=2), right ego (label=1), right lane (label=3), and left lane line (label=4)
 
-Images are 1280x720 RGB, and labels are 1280x720 grayscale images
+* Images are 1280x720 RGB, and labels are 1280x720 grayscale images
 
-Image augmentations like rotation, flipping, saturation, brightness, and contrast changes are applied randomly
+* Image augmentations like rotation, flipping, saturation, brightness, and contrast changes are applied randomly
 
-Data pipeline is made efficient using data interleaving and prefetch
+* Data pipeline is made efficient using data interleaving and prefetch
 
 ## 🧰 Model:
-MobileNetV2 is used as the backbone network, and then transposed convolutions are applied for upsampling with UNET-like feature concatenation.
+* MobileNetV2 is used as the backbone network, and then transposed convolutions are applied for upsampling with UNET-like feature concatenation.
 
-ResNets or EfficientNets can also be used as a backbone for better performance.
+* ResNets or EfficientNets can also be used as a backbone for better performance.
 
 ## 💻 Training and Prediction
 
-Install requirements using pip install -r requirements.txt
+* Install requirements using pip install -r requirements.txt
 
-Run training using python train.py --train_images [path to train images] --train_labels [path to train labels]
+* Run training using python train.py --train_images [path to train images] --train_labels [path to train labels]
 
-Perform prediction on image or video using pred.py or pred_video.py (also writes the blended video).
+* Perform prediction on image or video using pred.py or pred_video.py (also writes the blended video).
 
-Prune, cluster, and quantize model weights and activations for miniaturization.
+* Prune, cluster, and quantize model weights and activations for miniaturization.
 
   <p align="center">
     <img src="https://user-images.githubusercontent.com/22799415/109626664-19bf7300-7b41-11eb-8367-de783d1af713.png" alt="pruning",img width="550" />
@@ -47,7 +47,7 @@ Applying the above pipeline reduces the model size by approximately 11x, from 24
     <img src="https://user-images.githubusercontent.com/22799415/109627067-85a1db80-7b41-11eb-96f7-107d4ae99224.gif"  alt="animated" />
   </p>
   
-Pretrained weights are available at https://drive.google.com/drive/folders/1EhQ-8UoFv4rvMqe2mrJ4HFzZATd_Ee8c?usp=sharing.
+* Pretrained weights are available at https://drive.google.com/drive/folders/1EhQ-8UoFv4rvMqe2mrJ4HFzZATd_Ee8c?usp=sharing.
 
 
 
