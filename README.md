@@ -24,12 +24,12 @@ Image augmentations like rotation, flipping, saturation, brightness, and contras
 
 Data pipeline is made efficient using data interleaving and prefetch
 
-##🧰 Model:
+## 🧰 Model:
 MobileNetV2 is used as the backbone network, and then transposed convolutions are applied for upsampling with UNET-like feature concatenation.
 
 ResNets or EfficientNets can also be used as a backbone for better performance.
 
-##💻 Training and Prediction
+## 💻 Training and Prediction
 
 Install requirements using pip install -r requirements.txt
 
