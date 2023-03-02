@@ -12,7 +12,7 @@
 
 3. C++ inference to use the resulting miniature model.
 
-##📚 Training Dataset:
+## 📚 Training Dataset:
 
 The training data is TU Simple Lane Detection dataset.You can access it through this link: https://github.com/TuSimple/tusimple-benchmark
 
