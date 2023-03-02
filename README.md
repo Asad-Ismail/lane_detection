@@ -3,10 +3,13 @@
 
 ## 🌟 Features
 1. Segement and classify ego, left and right lane lines. The output can be visualized as shown below:
+
   <p align="center">
     <img src="https://user-images.githubusercontent.com/22799415/109520292-5b520e80-7aac-11eb-982d-0ff7c8d0ab9e.gif", alt="animated" />
   </p>
+  
 2. Apply pruning, clustering, and quantization to miniaturize the model, making it embedded system-ready.
+
 3. C++ inference to use the resulting miniature model.
 
 ### Training dataset:
