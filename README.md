@@ -1,15 +1,13 @@
 # 🚗 Ego and Side Lane Detection for ADAS Applications (Tensorflow 2.x) 🚘
 ## [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Asad-Ismail/lane_detection/issues) [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAsad-Ismail%2Flane_detection&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-### Features
-1) Segement and classify left ego and left and right lane lines
+## 🌟 Features
+1. Segement and classify ego, left and right lane lines. The output can be visualized as shown below:
   <p align="center">
     <img src="https://user-images.githubusercontent.com/22799415/109520292-5b520e80-7aac-11eb-982d-0ff7c8d0ab9e.gif", alt="animated" />
   </p>
-  
-2) Apply pruning, clustering and quantization to miniaturize the model and making it embedded system ready 
-
-3) C++ inference to use the resulting miniature model.
+2. Apply pruning, clustering, and quantization to miniaturize the model, making it embedded system-ready.
+3. C++ inference to use the resulting miniature model.
 
 ### Training dataset:
 * The training data is TU simple lane detection dataset https://github.com/TuSimple/tusimple-benchmark
